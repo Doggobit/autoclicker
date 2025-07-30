@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <windows.h>
 #include "headers/ENABLES.h" //header file for the struct with the bools of right click & left click
+#include <string.h>
 
 #pragma comment(lib, "User32.lib") // link User32.lib
 
@@ -21,8 +22,24 @@ int main(int argc, char** argv)
 	
 	if(argc == 3)
 	{
+		if((strcmp(argv[1], "0")) == 0 || (strcmp(argv[1], "1")) == 0) //check if argv[1] is 0 or 1
+		{
 		enables -> LENABLE = atoi(argv[1]);
+		}
+		else //if something isn't right gets the error
+		{
+			system("powershell (Write-Host \"`nTHE ARG NEEDS TO BE 0(false) or 1(true)`n\" -ForegroundColor DarkRed)");
+			return 1;
+		}
+		if((strcmp(argv[2], "0")) == 0 || (strcmp(argv[2], "1")) == 0) //check if argv[2] is 0 or 1
+		{
 		enables -> RENABLE = atoi(argv[2]);
+		}
+		else //if something isn't right gets the error
+		{
+			system("powershell (Write-Host \"`nTHE ARG NEEDS TO BE 0(false) or 1(true)`n\" -ForegroundColor DarkRed)");
+			return 1;
+		}
 	}
 	else
 	{

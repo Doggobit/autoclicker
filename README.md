@@ -54,9 +54,8 @@ autoclicker.exe 0 0
 1. Press **F7** to start the autoclicker
 2. Hold down the mouse button (left or right, depending on settings)
 3. The program will automatically click at randomized intervals while the button is held
-4. Release the mouse button to stop clicking
-5. Press **F7** again to stop the autoclicker
-6. Press **Ctrl + End** to exit
+4. Press **F7** again to stop the autoclicker
+5. Press **Ctrl + End** to exit
 
 ### Requirements
 - Windows OS
