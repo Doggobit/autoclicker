@@ -18,7 +18,12 @@ A lightweight, efficient autoclicker for Windows written in C.
 
 ## Usage
 
-### Basic Usage
+### Usage
+-First run the **compile.cmd**.
+```bash
+compile.cmd
+```
+-Than you can run autoclicker with no args.
 ```bash
 autoclicker.exe
 ```
