@@ -74,7 +74,7 @@ autoclicker/
 ├── compile.cmd         # Build script
 └── README.md           # This file
 └── .gitignore		#.gitignore
-└── .gitattributes  #make .ps1 files not detectable
+└── .gitattributes  	#make .ps1 files not detectable
 ```
 
 ## Technical Details
