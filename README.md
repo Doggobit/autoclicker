@@ -58,22 +58,11 @@ autoclicker.exe 0 0
 5. Press **F7** again to stop the autoclicker
 6. Press **Ctrl + End** to exit
 
-## Building
-
 ### Requirements
 - Windows OS
-- C compiler (tested with Clang)
+- Clang
+- Windw SDK
 - PowerShell (for intro script)
-
-### Compilation
-```bash
-clang main.c -o autoclicker.exe -lUser32
-```
-
-Or use the provided compile script:
-```bash
-compile.cmd
-```
 
 ## Project Structure
 
@@ -85,15 +74,14 @@ autoclicker/
 ├── intro.ps1           # PowerShell intro script
 ├── compile.cmd         # Build script
 └── README.md           # This file
+└── .gitignore			#.gitignore
 ```
 
 ## Technical Details
 
 - **Language**: C
-- **Platform**: Windows (uses Windows API)
-- **Dependencies**: User32.lib
+- **Platform**: Windows
 - **Click timing**: 20-40ms randomized intervals
-- **Memory management**: Dynamic allocation with proper cleanup
 
 ## Key Codes Used
 
@@ -107,7 +95,6 @@ autoclicker/
 
 - Memory allocation error checking
 - Proper resource cleanup
-- Non-destructive operation (only works when mouse is held)
 - Easy exit mechanism
 
 ## License
