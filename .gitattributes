@@ -1,2 +1,4 @@
 #Force repository to be detected as C
 *.c linguist-language=C
+*h linguist-language=C
+*.ps1 linguist-detectable=false
