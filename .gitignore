@@ -1,0 +1,8 @@
+#ignore .sh files
+*.sh
+
+#ignore no_right_click.bat
+no_right_click.bat
+
+#ignore .exe files
+*.exe
