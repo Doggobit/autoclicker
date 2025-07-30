@@ -73,7 +73,8 @@ autoclicker/
 ├── intro.ps1           # PowerShell intro script
 ├── compile.cmd         # Build script
 └── README.md           # This file
-└── .gitignore			#.gitignore
+└── .gitignore		#.gitignore
+└── .gitattributes  #make .ps1 files not detectable
 ```
 
 ## Technical Details
