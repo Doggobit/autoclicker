@@ -3,11 +3,14 @@
 #include <windows.h>
 #include "headers/ENABLES.h" //header file for the struct with the bools of right click & left click
 #include <string.h>
+#include "headers/calculate_ms.h"
 
 #pragma comment(lib, "User32.lib") // link User32.lib
+#pragma comment(lib, "calculate_ms.lib") // link calculate_ms.lib
 
 int main(int argc, char** argv)
 {
+	int click = cps_to_ms(3);
 	system("powershell -ExecutionPolicy Bypass -File \"intro.ps1\""); // program intro
 	
 	ENABLES* enables = malloc(sizeof(ENABLES)); // initialize a pointer to the structure
@@ -41,13 +44,20 @@ int main(int argc, char** argv)
 	
 	int random; //random variable
 	int sleep_time;	//delay between clicks
+	int cps_max; //max number of cps
+	int cps_min; //minimum number of cps
 	POINT p; //pointer to a structure with the x & y of the cursor
+	
+	printf("enter the minimum number of cps-> "); // Ask the user the minimum cps he wants to do
+	scanf_s("%d", &cps_min); //gets an input with cps_min
+	
+	printf("\nenter maxium number of cps -> ");
+	scanf_s("%d", &cps_max);
 	
 	//start main while cycle
 	
 	while (1)
-	{
-		
+	{	
 		Sleep(100); // stop the program to avoid problem with the F7 key
 		
 		if (GetAsyncKeyState(0x76)  != 0) //detect when F7 is pressed
@@ -60,8 +70,8 @@ int main(int argc, char** argv)
 			while (1)
 			{
 			
-				random = rand() % 21; //initialize the random value to randomize cps
-				sleep_time = 20 + random; //set the random delay time
+				random = rand() % cps_to_ms(cps_max); //set the random value to randomize cps
+				sleep_time = cps_min + random; //set the random delay time
 				Sleep(sleep_time);//delay beween clicks
 			
 				if (enables -> LENABLE && (GetAsyncKeyState(0x01) & 0x8000) != 0) //check if the left_click is enabled and if left button is held

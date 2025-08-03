@@ -1,2 +1,2 @@
 @echo off
-clang main.c -L "C:\Program Files (x86)\Windows Kits\10\Lib\10.0.26100.0\um\x64" -o autoclicker.exe
+clang main.c -L "C:\Program Files (x86)\Windows Kits\10\Lib\10.0.26100.0\um\x64" -L "lib" -o autoclicker.exe
