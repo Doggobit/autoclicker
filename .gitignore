@@ -6,3 +6,7 @@ no_right_click.bat
 
 #ignore .exe files
 *.exe
+
+#ignore prova.c
+
+prova.c
