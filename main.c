@@ -3,8 +3,8 @@
 #include <windows.h>
 #include <string.h>
 #include "headers/ENABLES.h" //header file for the struct with the bools of right click & left click
-#include "headers/calculate_ms.h"
-#include "headers/mouse_input.h"
+#include "headers/calculate_ms.h"//cps_to_ms()
+#include "headers/mouse_input.h"//INVERTED_LBUTTON_INPUT() & INVERTED_RBUTTON_INPUT()
 
 #pragma comment(lib, "User32.lib") // link User32.lib
 #pragma comment(lib, "calculate_ms.lib") // link calculate_ms.lib
@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 	
 	//set enables
 	
-	if(argc == 3)
+	if(argc == 3) //check if argc is 3
 	{
 		if(((strcmp(argv[1], "0") == 0) || (strcmp(argv[1], "1") == 0)) && (((strcmp(argv[2], "1")) == 0) || ((strcmp(argv[2], "0")) == 0))) //check if argv[1] or argv[2] is 0 or 1
 		{
@@ -38,7 +38,7 @@ int main(int argc, char** argv)
 			return 1;
 		}
 	}
-	else
+	else //if argc != 3 automatically set enables
 	{
 		enables -> LENABLE = 1;
 		enables -> RENABLE = 1;
@@ -52,24 +52,24 @@ int main(int argc, char** argv)
 	POINT p; //pointer to a structure with the x & y of the cursor
 	
 	system("powershell (Write-Host \"enter minimum cps -> \" -ForegroundColor DarkYellow -NoNewline)"); // Ask the user the minimum cps he wants to do
-	scanf_s("%d", &cps_min); //gets an input with cps_min
+	scanf_s("%d", &cps_min); //assign value ait cps_min
 	
-	system("powershell (Write-Host \"`nenter maxium cps -> \" -ForegroundColor DarkYellow -NoNewline)");
-	scanf_s("%d", &cps_max);
+	system("powershell (Write-Host \"`nenter maxium cps -> \" -ForegroundColor DarkYellow -NoNewline)"); // Ask the user the maxium cps he wants to do
+	scanf_s("%d", &cps_max); //assign value at cps_max
 	
-	system("powershell (Write-Host \"`nPRESS F7 TO START/STOP`n\" -ForegroundColor Cyan)");
-	system("powershell (Write-Host \"`nPRESS CTRL + END TO BREAK`n\" -ForegroundColor Cyan)");
+	system("powershell (Write-Host \"`nPRESS F7 TO START/STOP`n\" -ForegroundColor Cyan)"); // say how to start/stop autoclicking
+	system("powershell (Write-Host \"`nPRESS CTRL + END TO BREAK`n\" -ForegroundColor Cyan)"); //say how to interrupt the prgram
 	
-	if(!(cps_max >= cps_min))
+	if(!(cps_max >= cps_min)) //check if cps_min is actually the minium cps
 	{
 		system("powershell (Write-Host \"`n maxium cps needs to be higher than minimum cps!\" -ForegroundColor DarkRed )");
 		return 1;
 	}
 	
-	delay_jitter = cps_max;
-	delay_jitter -= cps_min;
-	cps_to_ms(delay_jitter);
-	delay_jitter++;
+	delay_jitter = cps_max; //*
+	delay_jitter -= cps_min;//* assign value to delay_jitter
+	cps_to_ms(delay_jitter);//*
+	delay_jitter++;//*
 	
 	//start main while cycle
 	

@@ -2,11 +2,17 @@
 
 A lightweight, efficient autoclicker for Windows written in C.
 
+### Requirements
+- Windows OS
+- Clang
+- Windw SDK
+- PowerShell (for intro script)
+
 ## Features
 
 - **Smart activation**: Only clicks when you hold down the mouse button
 - **Configurable**: Enable/disable left and right click independently
-- **Randomized timing**: Variable click delays (20-40ms) for natural behavior
+- **Variable cps**: Variable cps to make the autoclicker more 'human'
 - **Hotkey controls**: Easy start/stop and exit controls
 - **Command-line options**: Customize behavior via arguments
 
@@ -28,6 +34,14 @@ compile.cmd
 autoclicker.exe
 ```
 Runs with both left and right click enabled.
+
+enter max and minium cps(set both values equals to make cps stable)
+```bash
+enter maxium cps -> [int]
+```
+```bash
+enter minium cps -> [int]
+```
 
 ### Command Line Options
 ```bash
@@ -57,21 +71,27 @@ autoclicker.exe 0 0
 4. Press **F7** again to stop the autoclicker
 5. Press **Ctrl + End** to exit
 
-### Requirements
-- Windows OS
-- Clang
-- Windw SDK
-- PowerShell (for intro script)
-
 ## Project Structure
 
 ```
 autoclicker/
 ├── main.c              # Main program logic
+├── calculate_ms.c              # cps_to_ms function code
+├── mouse_input.c              # mouse input function code
 ├── headers/
 │   └── ENABLES.h       # Structure definitions
+|   └── calculate_ms.h       # cps_to_ms function definition
+|   └── mouse_input.h       # mouse input functions definitions
+├── lib/
+│   └── calculate_ms.lib      # calculate_ms lib file
+|   └── mouse_input.lib       # mouse_input lib file
+├── obj/                     #obj files to compile as .lib
+|   └── calculate_ms.obj     # 
+|   └── mouse_input.obj      # 
 ├── intro.ps1           # PowerShell intro script
 ├── compile.cmd         # Build script
+├── compile_calculate_ms.cmd         # build calculate_ms library
+├── compile_mouse_input.cmd         # build mouse_input library
 └── README.md           # This file
 └── .gitignore		#.gitignore
 └── .gitattributes  	#make .ps1 files not detectable
