@@ -46,13 +46,28 @@ int main(int argc, char** argv)
 	int sleep_time;	//delay between clicks
 	int cps_max; //max number of cps
 	int cps_min; //minimum number of cps
+	int delay_jitter; //jitter delay
 	POINT p; //pointer to a structure with the x & y of the cursor
 	
-	printf("enter the minimum number of cps-> "); // Ask the user the minimum cps he wants to do
+	system("powershell (Write-Host \"enter minimum cps -> \" -ForegroundColor DarkYellow -NoNewline)"); // Ask the user the minimum cps he wants to do
 	scanf_s("%d", &cps_min); //gets an input with cps_min
 	
-	printf("\nenter maxium number of cps -> ");
+	system("powershell (Write-Host \"`nenter maxium cps -> \" -ForegroundColor DarkYellow -NoNewline)");
 	scanf_s("%d", &cps_max);
+	
+	system("powershell (Write-Host \"`nPRESS F7 TO START/STOP`n\" -ForegroundColor Cyan)");
+	system("powershell (Write-Host \"`nPRESS CTRL + END TO BREAK`n\" -ForegroundColor Cyan)");
+	
+	if(!(cps_max >= cps_min))
+	{
+		system("powershell (Write-Host \"`n maxium cps needs to be higher than minimum cps!\" -ForegroundColor DarkRed )");
+		return 1;
+	}
+	
+	delay_jitter = cps_max;
+	delay_jitter -= cps_min;
+	cps_to_ms(delay_jitter);
+	delay_jitter++;
 	
 	//start main while cycle
 	
@@ -70,7 +85,7 @@ int main(int argc, char** argv)
 			while (1)
 			{
 			
-				random = rand() % cps_to_ms(cps_max); //set the random value to randomize cps
+				random = rand() % delay_jitter; //set the random value to randomize cps
 				sleep_time = cps_min + random; //set the random delay time
 				Sleep(sleep_time);//delay beween clicks
 			

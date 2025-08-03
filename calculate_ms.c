@@ -8,5 +8,5 @@ int cps_to_ms(int cps)
     }
     
     // interval = 1000 milliseconds / cps
-    return (1000 + cps/2) / cps;
+    return (1000) / cps;
 }

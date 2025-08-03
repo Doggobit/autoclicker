@@ -63,5 +63,3 @@ foreach ($line in $asciiArt.Split("`n")) {
 }
 
 Write-Host "`nWELCOME TO AUTOCLICKER`n" -ForegroundColor Cyan
-Write-Host "`nF7 TO START`n" -ForegroundColor Cyan
-Write-Host "`nCTRL + END TO BREAK`n" -ForegroundColor Cyan
