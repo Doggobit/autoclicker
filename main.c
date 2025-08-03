@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
-#include "headers/ENABLES.h" //header file for the struct with the bools of right click & left click
 #include <string.h>
+#include "headers/ENABLES.h" //header file for the struct with the bools of right click & left click
 #include "headers/calculate_ms.h"
+#include "headers/mouse_input.h"
 
 #pragma comment(lib, "User32.lib") // link User32.lib
 #pragma comment(lib, "calculate_ms.lib") // link calculate_ms.lib
+#pragma comment(lib, "mouse_input.lib") //link mouse_input.lib
 
 int main(int argc, char** argv)
 {
@@ -25,7 +27,7 @@ int main(int argc, char** argv)
 	
 	if(argc == 3)
 	{
-		if((strcmp(argv[1], "0") == 0) || (strcmp(argv[1], "1") == 0) || ((strcmp(argv[2], "1")) == 0) || ((strcmp(argv[2], "0")) == 0)) //check if argv[1] or argv[2] is 0 or 1
+		if(((strcmp(argv[1], "0") == 0) || (strcmp(argv[1], "1") == 0)) && (((strcmp(argv[2], "1")) == 0) || ((strcmp(argv[2], "0")) == 0))) //check if argv[1] or argv[2] is 0 or 1
 		{
 		enables -> LENABLE = atoi(argv[1]);
 		enables -> RENABLE = atoi(argv[2]);
@@ -71,8 +73,12 @@ int main(int argc, char** argv)
 	
 	//start main while cycle
 	
-	while (1)
+	while (!(GetAsyncKeyState(0x11) && GetAsyncKeyState(0x23))) //While until ctrl + end is pressed
 	{	
+		if(GetAsyncKeyState(0x76)) // detect when F7 is pressed
+		{
+			system("powershell (Write-Host \"`nAUTOCLICKER STOPPED`n\" -ForegroundColor Yellow)"); //say the autoclicker is started
+		}
 		Sleep(100); // stop the program to avoid problem with the F7 key
 		
 		if (GetAsyncKeyState(0x76)  != 0) //detect when F7 is pressed
@@ -82,47 +88,36 @@ int main(int argc, char** argv)
 			
 			//autoclicker loop
 			
-			while (1)
+			while (!(GetAsyncKeyState(0x76))) //while until F7 is pressed
 			{
 			
 				random = rand() % delay_jitter; //set the random value to randomize cps
-				sleep_time = cps_min + random; //set the random delay time
+				sleep_time = cps_to_ms(cps_min) + random; //set the random delay time
 				Sleep(sleep_time);//delay beween clicks
 			
 				if (enables -> LENABLE && (GetAsyncKeyState(0x01) & 0x8000) != 0) //check if the left_click is enabled and if left button is held
 				{
 					if (GetCursorPos(&p)) //check the cursor
 					{
-						mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0); //
-						mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);//autoclick
+						INVERTED_LBUTTON_INPUT();
 						continue;
 					}
 				}
 				
-				if (enables -> RENABLE && (GetAsyncKeyState(0x02) & 0x8000) != 0) //check if the right_click is enabled and if right button is held
+				else if (enables -> RENABLE && (GetAsyncKeyState(0x02) & 0x8000) != 0) //check if the right_click is enabled and if right button is held
 				{
 					if (GetCursorPos(&p)) // check the cursor
 					{
-						mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);//
-						mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);//autoclick
+						INVERTED_RBUTTON_INPUT();
 						continue;
 					}
-				}
-				if (GetAsyncKeyState(0x76) != 0) //detect when F7 is pressed
-				{
-					system("powershell (Write-Host \"`nAUTOCLICKER STOPPED`n\" -ForegroundColor Yellow)");//say that the autoclicker is topped
-					break;
 				}
 				continue;
 			}
 		}
-		if(GetAsyncKeyState(0x11) && GetAsyncKeyState(0x23))//detect when cntrl + end is pressed
-		{
-			system("powershell (Write-Host \"`nEXIT AUTOCLICKER`n\" -ForegroundColor Red)"); //say that you exit autoclicker
-			break;
-		}
 		continue;
 	}
+	system("powershell (Write-Host \"EXIT AUTOCLICKER`n\" -ForegroundColor Red)");
 	free(enables); //free the pointer to the ENABLES
 	return 0;
 }
